@@ -5,3 +5,6 @@
 
 ## Pycache
 *__pycache__/
+
+## Local Data
+*.db
