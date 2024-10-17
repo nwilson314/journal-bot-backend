@@ -27,15 +27,15 @@ async def get_journal_entries(id: int, session: Session = Depends(get_session)):
 
 @router.patch("/{id}")
 def update_journal_entry(id: int, entry: JournalEntryUpdate, session: Session = Depends(get_session)):
-    entry = session.get(JournalEntry, id)
+    db_entry = session.get(JournalEntry, id)
     if not entry:
         raise HTTPException(status_code=404, detail="Entry not found")
     for field, value in entry.model_dump(exclude_unset=True).items():
-        setattr(entry, field, value)
-    session.add(entry)
+        setattr(db_entry, field, value)
+    session.add(db_entry)
     session.commit()
-    session.refresh(entry)
-    return entry
+    session.refresh(db_entry)
+    return db_entry
 
 @router.delete("/{id}")
 def delete_journal_entry(id: int, session: Session = Depends(get_session)):
