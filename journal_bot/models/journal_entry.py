@@ -6,6 +6,7 @@ from sqlmodel import SQLModel, Field, Session
 
 class JournalEntryBase(SQLModel):
     content: str
+    analyzed_content: Optional[str] = None
 
 
 class JournalEntry(JournalEntryBase, table=True):
@@ -28,5 +29,3 @@ def create_entry(session: Session, entry: JournalEntryCreate):
     session.commit()
     session.refresh(db_entry)
     return db_entry
-
-
