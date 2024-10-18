@@ -17,8 +17,6 @@ app = FastAPI()
 
 app.include_router(journal.router)
 
-init_db()
-
 if environment == "dev":
     logger.warning("Running in development mode - allowing CORS for all origins")
     app.add_middleware(
